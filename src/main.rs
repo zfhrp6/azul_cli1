@@ -24,23 +24,21 @@ struct MyDataModel {
 
 impl Layout for MyDataModel {
     fn layout(&self, _: LayoutInfo<Self>) -> Dom<Self> {
+        let label = Dom::label(format!("{}", self.time.to_rfc3339()));
+        let text = TextInput::new()
+            .dom(&self.text)
+            .with_callback(On::TextInput, |mut info: CallbackInfo<Self>| {
+                input(&mut info)
+            });
+        let button = Button::with_label("call callback")
+            .dom()
+            .with_callback(On::LeftMouseDown, |mut info: CallbackInfo<Self>| {
+                update(&mut info)
+            });
         Dom::div()
-            .with_child(Dom::label(format!("{}", self.time.to_rfc3339())))
-            .with_child(
-                TextInput::new()
-                    .dom(&self.text)
-                    .with_id("hoge")
-                    .with_callback(On::TextInput, |mut callback: CallbackInfo<Self>| {
-                        input(&mut callback)
-                    }),
-            )
-            .with_child(
-                Button::with_label("hoge")
-                    .dom()
-                    .with_callback(On::LeftMouseDown, |mut callback: CallbackInfo<Self>| {
-                        update(&mut callback)
-                    }),
-            )
+            .with_child(label)
+            .with_child(text)
+            .with_child(button)
     }
 }
 
