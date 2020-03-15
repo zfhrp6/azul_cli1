@@ -1,0 +1,7 @@
+[account]
+screen_name= "YOUR SCREEN NAME"
+app_key = APP CONSUMER KEY"
+app_secret = "APP CONSUMER SECRET"
+oauth_token = "TOKEn"
+oauth_token_secret = "TOKEN SECRET"
+
